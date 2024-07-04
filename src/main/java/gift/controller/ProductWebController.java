@@ -56,11 +56,8 @@ public class ProductWebController {
     }
 
     @PostMapping("/{id}/edit")
-    public String edit(@PathVariable Long id,@Valid @ModelAttribute Product product, BindingResult bindingResult)
+    public String edit(@PathVariable Long id,@Valid @ModelAttribute Product product)
     {
-        if(bindingResult.hasErrors()){
-            return "editForm";
-        }
         productService.updateProduct(id, product);
         return "redirect:/products";
     }
@@ -73,10 +70,7 @@ public class ProductWebController {
     }
 
     @PostMapping("/add")
-    public String addProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "addForm";
-        }
+    public String addProduct(@Valid @ModelAttribute Product product){
         Product savedProduct = productService.addProduct(product);
         return "redirect:/products";
     }
